@@ -81,6 +81,21 @@
       <p><strong>User ID:</strong> {{ todo.userId }}</p>
     </div>
 
+      <div *ngIf="multipleFiles && !loading" class="files-card">
+        <h2>Retrieved Files</h2>
+        <div *ngFor="let file of multipleFiles" class="file-item">
+          <h3>{{ file.name }}</h3>
+          <div class="file-details">
+            <p><strong>X length:</strong> {{ file.x.length }}</p>
+            <p><strong>Y length:</strong> {{ file.y.length }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="fetchMultipleFiles()" class="fetch-button">
+        Fetch Multiple Files
+      </button>    
+
   </div>
 
   <!-- Footer -->

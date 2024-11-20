@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface FileObject {
   name: string;
@@ -19,6 +20,10 @@ export class AppComponent {
   loading = false;
   error = '';
 
+  constructor(private http: HttpClient) {
+
+  }
+
   ngOnInit() {
     this.fetchTodo();
   }
@@ -38,6 +43,46 @@ export class AppComponent {
       this.loading = false;
     }
   }
+
+  async fetchTodoPromises() {
+    this.loading = true;
+  
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch todo');
+        }
+        return response.json();
+      })
+      .then(data => {
+        this.todo = data;
+      })
+      .catch(err => {
+        this.error = 'Failed to load todo. Please try again later.';
+        console.error('Error fetching todo:', err);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
+  }
+
+  // Method to fetch the todo item
+  fetchTodoWithObservable() {
+    this.loading = true;
+    this.http.get('https://jsonplaceholder.typicode.com/todos/1')
+      .subscribe(
+        data => {
+          this.todo = data;
+          this.loading = false;
+        },
+        err => {
+          this.error = 'Failed to load todo. Please try again later.';
+          console.error('Error fetching todo:', err);
+          this.loading = false;
+        }
+      );
+  }  
+
 
   async fetchMultipleFiles() {
     this.loading = true;

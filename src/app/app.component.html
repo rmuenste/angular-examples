@@ -96,6 +96,19 @@
         Fetch Multiple Files
       </button>    
 
+    <div *ngIf="todo$ | async as todo2" class="todo-card">
+      <h2>Todo #{{ todo2.id }} </h2>
+      <p><strong>Title:</strong> {{ todo2.title }}</p>
+      <p><strong>Completed:</strong> {{ todo2.completed ? 'Yes' : 'No' }}</p>
+      <p><strong>User ID:</strong> {{ todo2.userId }}</p>
+    </div>
+
+    <div *ngIf="loading2">Loading with Observable and Pipe...</div>
+    <br>
+    <button (click)="fetchTodoWithObservablePipe()" class="fetch-button">
+      Fetch with Observable + Pipe
+    </button>    
+
   </div>
 
   <!-- Footer -->

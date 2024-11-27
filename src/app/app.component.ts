@@ -37,6 +37,19 @@ export class AppComponent {
 
   ngOnInit() {
     this.fetchTodo();
+    console.log('1. Starting execution');
+    this.asyncOperation();
+    console.log('4. After async function call');
+
+  }
+
+  async asyncOperation() {
+    console.log('2. Starting async operation');
+
+    // This await pauses execution inside this function
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    console.log('3. Async operation complete');
   }
 
   async fetchTodo() {
